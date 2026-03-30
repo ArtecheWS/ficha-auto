@@ -2,23 +2,24 @@ name: Fichaje automatico Ficha.Work
 
 on:
   schedule:
-      - cron: '0 7 * * 1-5'   # 9:00 hora Madrid (UTC+2 en verano)
-          - cron: '0 15 * * 1-5'  # 17:00 hora Madrid (UTC+2 en verano)
-            workflow_dispatch:         # permite ejecutar manualmente desde GitHub
+      - cron: '0 7 * * 1-5'   # 09:00 hora Madrid (UTC+2 verano / cambiar a '0 8' en invierno)
+          - cron: '0 15 * * 1-5'  # 17:00 hora Madrid (UTC+2 verano / cambiar a '0 16' en invierno)
+            workflow_dispatch:          # permite lanzar el workflow manualmente desde GitHub Actions
 
             jobs:
               fichar:
                   runs-on: ubuntu-latest
+
                       steps:
-                            - name: Checkout codigo
+                            - name: Descargar el codigo del repositorio
                                     uses: actions/checkout@v4
 
-                                          - name: Usar Node.js
+                                          - name: Configurar Node.js
                                                   uses: actions/setup-node@v4
                                                           with:
                                                                     node-version: '18'
 
-                                                                          - name: Ejecutar fichaje
+                                                                          - name: Ejecutar el script de fichaje
                                                                                   env:
                                                                                             REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
                                                                                                     run: node fichawork.js
