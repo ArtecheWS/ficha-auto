@@ -1,68 +1,68 @@
 # 🕒 Ficha-Auto
 
-Fichaje automático en [Ficha.Work](https://app.ficha.work) mediante **GitHub Actions**. El sistema se ejecuta automáticamente de lunes a viernes a las **09:00** (entrada) y **17:00** (salida), sin necesidad de que tu ordenador esté encendido.
+Fitxatge automàtic a [Ficha.Work](https://app.ficha.work) mitjançant **GitHub Actions**. El sistema s'executa automàticament de dilluns a divendres a les **09:00** (entrada) i a les **17:00** (sortida), sense necessitat de tenir l'ordinador encès.
 
-## ✨ Características
-* 🚫 **Inteligente:** Salta automáticamente los días festivos de tu empresa.
-* 🌴 **Vacaciones:** Respeta los días de vacaciones registrados en Ficha.Work.
-* 🔄 **Autosuficiente:** El token de sesión se renueva automáticamente en cada ejecución.
-* 📋 **Transparente:** Logs detallados de cada fichaje en la pestaña *Actions*.
+## ✨ Característiques
+* 🚫 **Intel·ligent:** Salta automàticament els dies festius del calendari de la teva empresa.
+* 🌴 **Vacances:** Respecta els dies de vacances registrats a Ficha.Work.
+* 🔄 **Autosuficient:** El token de sessió es renova automàticament en cada execució.
+* 📋 **Transparent:** Registres (logs) detallats de cada fitxatge a la pestanya *Actions*.
 
 ---
 
-## 🚀 Tutorial: Cómo configurarlo en tu cuenta
+## 🚀 Tutorial: Com configurar-ho al teu compte
 
-Sigue estos pasos para tener tu propio sistema de fichaje en menos de 5 minutos:
+Segueix aquests passos per tenir el teu propi sistema de fitxatge en menys de 5 minuts:
 
-### Paso 1: Preparar tu repositorio
-1. Inicia sesión en tu cuenta de [GitHub](https://github.com).
-2. Haz un **Fork** de este repositorio (botón arriba a la derecha).
-3. Deja las opciones por defecto y haz clic en **Create fork**. Ahora tienes una copia privada en tu cuenta.
+### Pas 1: Preparar el teu repositori
+1. Inicia sessió al teu compte de [GitHub](https://github.com).
+2. Fes un **Fork** d'aquest repositori (botó a la part superior dreta).
+3. Deixa les opcions per defecte i fes clic a **Create fork**. Ara ja tens una còpia privada al teu compte.
 
-### Paso 2: Obtener tu Refresh Token
-1. Abre [app.ficha.work](https://app.ficha.work) e inicia sesión.
-2. Pulsa **F12** para abrir las herramientas de desarrollador.
-3. Ve a la pestaña **Application** (Chrome/Edge) o **Storage** (Firefox).
-4. En el panel izquierdo, despliega **Local Storage** y selecciona `https://app.ficha.work`.
-5. Busca la clave llamada `refreshToken` y copia su valor (un texto muy largo).
+### Pas 2: Obtenir el teu Refresh Token
+1. Obre [app.ficha.work](https://app.ficha.work) i inicia sessió.
+2. Prem **F12** per obrir les eines de desenvolupador.
+3. Ves a la pestanya **Application** (Chrome/Edge) o **Storage** (Firefox).
+4. Al panell esquerre, desplega **Local Storage** i selecciona `https://app.ficha.work`.
+5. Busca la clau anomenada `refreshToken` i copia'n el valor (un text molt llarg).
 
 > [!CAUTION]
-> Este token es como tu contraseña. **No lo compartas**. Guárdalo solo en los secretos de GitHub para que permanezca oculto.
+> Aquest token és com la teva contrasenya. **No el comparteixis**. Guarda'l només als secrets de GitHub perquè es mantingui ocult.
 
-### Paso 3: Configurar el Secret en GitHub
-1. En **tu** repositorio (el fork), ve a la pestaña **Settings**.
-2. En el menú izquierdo, ve a **Secrets and variables** → **Actions**.
-3. Haz clic en **New repository secret**.
+### Pas 3: Configurar el Secret a GitHub
+1. Al **teu** repositori (el fork), ves a la pestanya **Settings**.
+2. Al menú esquerre, ves a **Secrets and variables** → **Actions**.
+3. Fes clic a **New repository secret**.
 4. **Name:** `REFRESH_TOKEN`
-5. **Secret:** Pega el valor que copiaste en el paso anterior.
-6. Haz clic en **Add secret**.
+5. **Secret:** Enganxa el valor que has copiat al pas anterior.
+6. Fes clic a **Add secret**.
 
-### Paso 4: Activar los Workflows
-GitHub desactiva las acciones por defecto al hacer un fork. Para activarlas:
-1. Ve a la pestaña **Actions** de tu repositorio.
-2. Haz clic en el botón verde: **"I understand my workflows, go ahead and enable them"**.
+### Pas 4: Activar els Workflows
+GitHub desactiva les accions per defecte quan fas un fork. Per activar-les:
+1. Ves a la pestanya **Actions** del teu repositori.
+2. Fes clic al botó verd: **"I understand my workflows, go ahead and enable them"**.
 
-### Paso 5: Prueba de funcionamiento
-1. Dentro de la pestaña **Actions**, selecciona el flujo **Fichaje automático** en la lista de la izquierda.
-2. Haz clic en el desplegable **Run workflow** → botón **Run workflow**.
-3. Espera unos segundos, recarga la página y haz clic en la ejecución para ver los logs y confirmar que ha funcionado.
+### Pas 5: Prova de funcionament
+1. Dins de la pestanya **Actions**, selecciona el flux **Fichaje automático** a la llista de l'esquerra.
+2. Fes clic al desplegable **Run workflow** → botó **Run workflow**.
+3. Espera uns segons, recarrega la pàgina i fes clic a l'execució per veure els logs i confirmar que ha funcionat correctament.
 
 ---
 
-## ⏰ Ajuste de Horario (UTC)
+## ⏰ Ajust d'horari (UTC)
 
-GitHub Actions trabaja siempre con la hora **UTC**. Para que fiche a las 09:00 y 17:00 de Madrid, el archivo `.github/workflows/fichar.yml` debe configurarse según la época del año:
+GitHub Actions treballa sempre amb l'hora **UTC**. Perquè fitxi a les 09:00 i 17:00 de Madrid/Barcelona, el fitxer `.github/workflows/fichar.yml` s'ha de configurar segons l'època de l'any:
 
-| Época | Diferencia Madrid | Configuración Cron |
+| Època | Diferència local | Configuració Cron |
 | :--- | :--- | :--- |
-| **Verano** (Marzo-Octubre) | UTC+2 | `0 7` (9:00) y `0 15` (17:00) |
-| **Invierno** (Octubre-Marzo) | UTC+1 | `0 8` (9:00) y `0 16` (17:00) |
+| **Estiu** (Març-Octubre) | UTC+2 | `0 7` (9:00) i `0 15` (17:00) |
+| **Hivern** (Octubre-Març) | UTC+1 | `0 8` (9:00) i `0 16` (17:00) |
 
 > [!TIP]
-> Para editarlo, abre el archivo `.yml`, pulsa el icono del lápiz ✏️, cambia las horas y haz clic en **Commit changes**.
+> Per editar-ho, obre el fitxer `.yml`, prem l'icona del llapis ✏️, canvia les hores i fes clic a **Commit changes**.
 
 ---
 
-## 🛠️ Mantenimiento
-* **Si deja de funcionar:** Lo más probable es que el `refreshToken` haya caducado por falta de uso prolongado. Repite los **Pasos 2 y 3** con un token nuevo.
-* **Logs:** Siempre puedes revisar la pestaña **Actions** para verificar si el fichaje de hoy ha sido exitoso.
+## 🛠️ Manteniment
+* **Si deixa de funcionar:** El més probable és que el `refreshToken` hagi caducat per falta d'ús prolongat. Repeteix els **Passos 2 i 3** amb un nou token.
+* **Logs:** Sempre pots revisar la pestanya **Actions** per verificar si el fitxatge d'avui s'ha realitzat amb èxit.
