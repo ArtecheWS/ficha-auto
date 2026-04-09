@@ -2,9 +2,9 @@ name: Fichaje automatico Ficha.Work
 
 on:
   schedule:
-    - cron: '0 7 * * 1-5'   # 09:00 hora Madrid (UTC+2)
-    - cron: '0 15 * * 1-5'  # 17:00 hora Madrid (UTC+2)
-  workflow_dispatch:        # Permite lanzar el workflow manualmente
+    - cron: '0 6 * * 1-5'   # 08:00 UTC -> 09:00 hora Madrid (con UTC+1) / 10:00 (con UTC+2)
+    - cron: '0 14 * * 1-5'  # 16:00 UTC -> 17:00 hora Madrid (con UTC+1) / 18:00 (con UTC+2)
+  workflow_dispatch:
 
 jobs:
   fichar:
